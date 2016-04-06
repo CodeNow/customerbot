@@ -4,4 +4,4 @@ ADD package.json /bot/package.json
 WORKDIR /bot
 RUN npm install
 ADD . .
-MD node index.js
+CMD node index.js
