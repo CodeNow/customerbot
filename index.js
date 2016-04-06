@@ -8,12 +8,11 @@ var settings = {
 var bot = new Bot(settings);
 
 bot.on('start', function() {
-    bot.postMessageToChannel('some-channel-name', 'Hello channel!');
     bot.postMessageToUser('praful', 'hello bro!');
-    bot.postMessageToGroup('some-private-group', 'hello group chat!');
 });
 
 bot.on('message', function(data) {
     // all ingoing events https://api.slack.com/rtm 
+    bot.postMessageToUser(data.user, 'hi', function(data) {/* ... */});
     console.log(data);
 });
