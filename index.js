@@ -12,3 +12,8 @@ bot.on('start', function() {
     bot.postMessageToUser('praful', 'hello bro!');
     bot.postMessageToGroup('some-private-group', 'hello group chat!');
 });
+
+bot.on('message', function(data) {
+    // all ingoing events https://api.slack.com/rtm 
+    console.log(data);
+});
