@@ -36,7 +36,8 @@
     "progress": "^1.1.8",
     "request": "^2.60.0",
     "slackbots": "^0.3.0",
-    "sqlite3": "^3.0.10"
+    "sqlite3": "^3.0.10",
+    "easy-slackbot": "*"
   },
   "devDependencies": {
     "xo": "^0.5.2"
