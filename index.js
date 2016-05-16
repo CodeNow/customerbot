@@ -33,6 +33,7 @@ class MyCmd extends Command {
 
     // Override the default handler (!)
     handler(data, ctx, slack, callback) {
+        console.log(data);
         // data = incoming message data. I recommend console.logging it
         // ctx = commandtext. Array of words in message. Log it.
         // slack = SlackBot instance. Use it to do slack.getUser(data.user).name
