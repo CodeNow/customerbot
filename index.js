@@ -70,7 +70,7 @@ var bot = new SlackBot({
 // set up a whole extends Command class.
 bot.addCommandDirectly('help', (data, ctx, slack, callback) => {
     console.log("hello");
-    callback('Read the docs, *fool*.');
+    // callback('Read the docs, *fool*.');
 });
 
 // Connect async
