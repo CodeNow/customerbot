@@ -69,6 +69,7 @@ var bot = new SlackBot({
 // Add an anonymous function if you can't be bothered to
 // set up a whole extends Command class.
 bot.addCommandDirectly('help', (data, ctx, slack, callback) => {
+    console.log("hello");
     callback('Read the docs, *fool*.');
 });
 
