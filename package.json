@@ -37,6 +37,7 @@
     "request": "^2.60.0",
     "slackbots": "^0.3.0",
     "sqlite3": "^3.0.10",
+    "@slack/client" : "*",
     "easy-slackbot": "*"
   },
   "devDependencies": {
