@@ -12,9 +12,9 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
   var text = message.text;
 
   if (text == "tags") {
-    setTimeout(1000, function (){
+    setTimeout(function (){
       rtm.sendMessage("these are all the tags from intercom", channel);
-    });
+    }, 1000);
   } else  {
     rtm.sendMessage("I do not understand this command", channel);
   }
