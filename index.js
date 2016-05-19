@@ -1,4 +1,6 @@
 var Slack = require('@slack/client');  
+var fs = require('fs');
+
 var RtmClient = Slack.RtmClient;  
 var RTM_EVENTS = Slack.RTM_EVENTS;
 
@@ -12,9 +14,13 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
   var text = message.text;
 
   if (text == "tags") {
-    setTimeout(function (){
-      rtm.sendMessage("these are all the tags from intercom", channel);
-    }, 1000);
+    fs.readFile("/database/currentDatabase.csv", function read (err, data) {
+      if (err) {
+        throw err;
+      } 
+      rtm.sendMessage("data", channel);
+    });
+     
   } else  {
     rtm.sendMessage("I do not understand this command", channel);
   }
