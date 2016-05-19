@@ -14,7 +14,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
   var text = message.text;
 
   if (text == "tags") {
-    fs.readFile("/database/currentDatabase.csv", function read (err, data) {
+    fs.readFile("/database/currentDB.csv", function read (err, data) {
       if (err) {
         throw err;
       } 
