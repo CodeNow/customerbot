@@ -18,8 +18,8 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
       if (err) {
         throw err;
       } 
-      console.log(err);
-      console.log(data);
+      console.log("error:", err);
+      console.log("data",data);
       rtm.sendMessage(data, channel);
     });
      
