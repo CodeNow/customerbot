@@ -19,8 +19,8 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
         throw err;
       } 
       console.log("error:", err);
-      console.log("data",data);
-      rtm.sendMessage(data, channel);
+      console.log("data",data.toString());
+      rtm.sendMessage(data.toString(), channel);
     });
      
   } else  {
