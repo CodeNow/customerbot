@@ -34,6 +34,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
   var text = message.text;
 
   if (text == "tags") {
+  	rtm.sendMessage("sending you tags", channel);
     jira.search.search({
         jql: 'type = feedback',
         maxResults: '1000'
