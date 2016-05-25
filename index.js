@@ -4,6 +4,9 @@ var JiraClient = require('jira-connector');
 var Intercom = require('intercom-client');
 var async = require('async');
 
+var client = new Intercom.Client({ appId: 'wqzm3rju', appApiKey: 'ef28806417aef605ca74573ff080c9d5eb0d6384' });
+
+
 var stuff2 = [ 80, 81, 63, 52, 104, 100, 112, 94 ];
 var stuff = [];
 for (i = 0; i < stuff2.length; i++) {
