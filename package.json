@@ -39,7 +39,10 @@
     "sqlite3": "^3.0.10",
     "jira-connector":"*",
     "@slack/client" : "*",
-    "easy-slackbot": "*"
+    "easy-slackbot": "*",
+    "intercom-client" : "*",
+    "async" : "*"
+    
   },
   "devDependencies": {
     "xo": "^0.5.2"
