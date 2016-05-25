@@ -29,22 +29,117 @@ var jira = new JiraClient( {
 var rtm = new RtmClient(token, { logLevel: 'info' });  
 rtm.start();
 
+
+/// UTILITY FUNCTIONS ------------------------------------------------------------
+var getTagCount = function (tag_id, cb) {
+	client.companies.listBy({ tag_id: tag_id }, function (err, res) {
+		if (err) {
+			console.log("somethign went wrong trying to find this tag ", tag_id, err.error);
+			cb(-1);
+		} else {
+			cb(res.body.total_count);
+		}
+	});	
+}
+
+var generateTagsTable = function (cb) {
+	var r = {};
+
+	client.tags.list( function (err, list) {
+		async.forEachSeries(list.body.tags, function (e,icb) {
+		   if (e.name.indexOf("SAN-") >= 0) {
+		   		getTagCount(e.id, function (count) {
+					r[e.name] = count;
+				   	icb();
+					// console.log(r);
+		   		});
+		   } else {
+		   		icb();
+		   }
+		}, function (err) {
+		    // console.log(r);
+		    if (err)
+		    	cb(err, null);
+
+		    console.log("done");
+		    cb(null, r);
+		});
+	});
+}
+
+var getIssueTable = function (issues, cb) {
+	var results = {};
+	results["problem"] = [];
+	results["feedback"] = [];
+	results["support"] = [];
+
+	generateTagsTable(function (err, tags_intercom) {
+		if(err)
+			cb(err, null);
+
+		issues.issues.forEach(function (issue) {
+			if (tags_intercom[issue.key]) {
+				if (issue.fields.labels.indexOf("problem") > -1) {
+					results["problem"].push({
+						"key" : issue.key,
+						"title": issue.fields.summary,
+						"count": tags_intercom[issue.key], 
+					});
+				} else if (issue.fields.labels.indexOf("support") > -1) {
+					results["support"].push({
+						"key" : issue.key,
+						"title": issue.fields.summary,
+						"count": tags_intercom[issue.key], 
+					});
+				} else {
+					results["feedback"].push({
+						"key" : issue.key,
+						"title": issue.fields.summary,
+						"count": tags_intercom[issue.key], 
+					});
+				}
+			}
+		});
+
+		results["feedback"].sort(function(a,b) {
+			return b.count - a.count;
+		});
+
+		results["support"].sort(function(a,b) {
+			return b.count - a.count;
+		});
+
+		results["problem"].sort(function(a,b) {
+			return b.count - a.count;
+		});
+
+
+		cb(null, results);
+	});
+}
+
+/// UTILITY FUNCTIONS ------------------------------------------------------------
+
+// ##### MAIN DISPATCH #####
 rtm.on(RTM_EVENTS.MESSAGE, function(message) {  
   var channel = message.channel;
   var text = message.text;
 
-  if (text == "tags") {
-  	rtm.sendMessage("sending you tags", channel);
-    jira.search.search({
-        jql: 'type = feedback',
-        maxResults: '1000'
-    }, function(error, issue) {
-    	  console.log(error);
-    	 // console.log(issue);
-      //   console.log(issue.fields);
-        rtm.sendMessage(issue.toString(), channel);
-    });
-
+  if (text == "feedback") {
+  	rtm.sendMessage("Sending current problems... hang tight.", channel);
+	jira.search.search({
+	    jql: 'type = feedback',
+	    maxResults: '1000'
+	}, function(error, issue) {
+	    if (error) {
+	    	// send error message
+	    } else {
+	    	getIssueTable(issue, function (err, results){
+	    		rtm.sendMessag(results);
+	    	});
+	    }
+	});
+	
   } else  {
     rtm.sendMessage("I do not understand this command", channel);
   }
