@@ -1,6 +1,8 @@
 var Slack = require('@slack/client');  
 var fs = require('fs');
 var JiraClient = require('jira-connector');
+var Intercom = require('intercom-client');
+var async = require('async');
 
 var stuff2 = [ 80, 81, 63, 52, 104, 100, 112, 94 ];
 var stuff = [];
