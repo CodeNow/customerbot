@@ -140,8 +140,8 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
 	    	// send error message
 	    } else {
 	    	getIssueTable(issue, function (err, results){
-	    		console.log(results);
-	    		rtm.sendMessage("here they are" + results, channel);
+	    		// console.log(results);
+	    		rtm.sendMessage("here they are" + results.toString(), channel);
 	    	});
 	    }
 	});
