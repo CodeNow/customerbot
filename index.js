@@ -141,7 +141,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
 	    } else {
 	    	getIssueTable(issue, function (err, results){
 	    		console.log(results);
-	    		rtm.sendMessage(results, channel);
+	    		rtm.sendMessage("here they are" + results, channel);
 	    	});
 	    }
 	});
