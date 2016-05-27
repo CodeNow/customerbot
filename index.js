@@ -180,7 +180,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
 	    } else {
 	    	getIssueTable(issue, function (err, results){
 	    		// console.log(results);
-	    		rtm.sendMessage(getMessageFromTable(results["problem"]), channel);
+	    		rtm.sendMessage(getMessageFromTable(results), channel);
 	    	});
 	    }
 	});
