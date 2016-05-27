@@ -40,6 +40,7 @@
     "jira-connector":"*",
     "@slack/client" : "*",
     "easy-slackbot": "*",
+    "cli-table": "*",
     "intercom-client" : "*",
     "async" : "*"
     
