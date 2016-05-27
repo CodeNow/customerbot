@@ -186,13 +186,12 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
 	});
 	
   } else  {
-  	var Table = require('cli-table');
-	var table = new Table({ head: ["", "Top Header 1", "Top Header 2"] });
-	 
-	table.push(
-	    { 'Left Header 1': ['Value Row 1 Col 1', 'Value Row 1 Col 2'] }
-	  , { 'Left Header 2': ['Value Row 2 Col 1', 'Value Row 2 Col 2'] }
-	);
+var table = require('text-table');
+var t = table([
+    [ 'master', '0123456789abcdef' ],
+    [ 'staging', 'fedcba9876543210' ]
+]);
+console.log(t);
 	 
     rtm.sendMessage(table.toString(), channel);
   }
