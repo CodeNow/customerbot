@@ -191,9 +191,8 @@ var t = table([
     [ 'master', '0123456789abcdef' ],
     [ 'staging', 'fedcba9876543210' ]
 ]);
-console.log(t);
 	 
-    rtm.sendMessage(table.toString(), channel);
+    rtm.sendMessage(t, channel);
   }
 
 });
