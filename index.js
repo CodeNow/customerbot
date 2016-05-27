@@ -194,7 +194,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
 	  , { 'Left Header 2': ['Value Row 2 Col 1', 'Value Row 2 Col 2'] }
 	);
 	 
-    rtm.sendMessage("table.toString(), channel);
+    rtm.sendMessage(table.toString(), channel);
   }
 
 });
