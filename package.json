@@ -41,6 +41,7 @@
     "@slack/client" : "*",
     "easy-slackbot": "*",
     "cli-table": "*",
+    "text-table": "*",
     "intercom-client" : "*",
     "async" : "*"
     
