@@ -186,13 +186,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
 	});
 	
   } else  {
-var table = require('text-table');
-var t = table([
-    [ 'header1', 'header2', 'header3', 'header4' ],
-    [ 'staging', 'fedcba9876543210', 'data3asdokadsoaksoasdkokasdokasdokoadsoadskoadksokadoakkads', 'data11111' ]
-]);
-	 
-    rtm.sendMessage(t, channel);
+    rtm.sendMessage("do not understand this command", channel);
   }
 
 });
