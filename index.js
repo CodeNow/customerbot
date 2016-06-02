@@ -170,6 +170,12 @@ bot.on('message', function(data) {
     console.log(data.type);
     console.log(data.text);
     
+    
+    bot.postMessageToUser(data.user, 'hi');
+    bot.postMessageToUser('praful', 'hi').fail(function(data) {
+    		//data = { ok: false, error: 'user_not_found' } 
+    });
+
     //if (data.type == "message" && data.text == "feedback") {
 	   // 	bot.postMessageToUser(data.user, 'Sending you current problems...', function (data) {
 	   // 		console.log(data);
