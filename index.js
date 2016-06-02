@@ -167,7 +167,7 @@ bot.on('message', function(data) {
 	    		console.log(data);
 		});				
 	} else {
-		bot.postMessageToUser('praful', 'I do not understand this command.').fail(function(data) {
+		bot.postMessageToUser(data.user, 'I do not understand this command.').fail(function(data) {
 	    		//data = { ok: false, error: 'user_not_found' } 
 	    		console.log(data);
 		});		
