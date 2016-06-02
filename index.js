@@ -159,7 +159,7 @@ var SlackBot = require('slackbots');
  
 // create a bot 
 var bot = new SlackBot({
-    token: process.env.BOT_API_KEY, // Add a bot https://my.slack.com/services/new/bot and put the token  
+    token: process.env.BOT_API_KEEY, // Add a bot https://my.slack.com/services/new/bot and put the token  
     name: 'Customer Bot'
 });
 
