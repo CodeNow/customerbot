@@ -1,5 +1,5 @@
 {
-  "name": "Customer Bot",
+  "name": "CustomerBot",
   "version": "1.0.0",
   "description": "Runnable Demo Multi Tier Back End",
   "main": "server/app.js",
