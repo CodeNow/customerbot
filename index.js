@@ -129,25 +129,7 @@ var getIssueTable = function (issues, cb) {
 rtm.on(RTM_EVENTS.MESSAGE, function(message) {  
   var channel = message.channel;
   var text = message.text;
-
-  if (text == "feedback") {
-  	rtm.sendMessage("Sending current problems... hang tight.", channel);
-	jira.search.search({
-	    jql: 'type = feedback',
-	    maxResults: '1000'
-	}, function(error, issue) {
-	    if (error) {
-	    	// send error message
-	    } else {
-	    	getIssueTable(issue, function (err, results){
-	    		// console.log(results);
-	    		rtm.sendMessage("here they are" + results["problem"].toString(), channel);
-	    	});
-	    }
-	});
-	
-  } else  {
-    rtm.sendMessage("I do not understand this command", channel);
-  }
+  
+  rtm.sendMessage("I do not understand this command", channel);
 
 });
