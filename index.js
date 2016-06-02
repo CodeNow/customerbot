@@ -31,8 +31,6 @@ var jira = new JiraClient( {
 });
 // end of connecting to JIRA
 
-var rtm = new RtmClient(token, { logLevel: 'info' });  
-rtm.start();
 
 
 /// UTILITY FUNCTIONS ------------------------------------------------------------
@@ -126,6 +124,10 @@ var getIssueTable = function (issues, cb) {
 /// UTILITY FUNCTIONS ------------------------------------------------------------
 
 // ##### MAIN DISPATCH #####
+
+// var rtm = new RtmClient(token, { logLevel: 'info' });  
+// rtm.start();
+
 // rtm.on(RTM_EVENTS.MESSAGE, function(message) {  
 //   var channel = message.channel;
 //   var text = message.text;
