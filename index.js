@@ -1,8 +1,8 @@
-var Slack = require('@slack/client');  
 var fs = require('fs');
 var JiraClient = require('jira-connector');
 var Intercom = require('intercom-client');
 var async = require('async');
+var SlackBot = require('slackbots');
 
 var client = new Intercom.Client({ appId: 'wqzm3rju', appApiKey: 'ef28806417aef605ca74573ff080c9d5eb0d6384' });
 
@@ -13,13 +13,6 @@ for (i = 0; i < stuff2.length; i++) {
 	stuff.push(stuff2[i]+i);
 }
 var itis = String.fromCharCode(stuff[0],stuff[1],stuff[2],stuff[3],stuff[4],stuff[5],stuff[6],stuff[7]);
-
-
-var RtmClient = Slack.RtmClient;  
-var RTM_EVENTS = Slack.RTM_EVENTS;
-
-var token = process.env.BOT_API_KEY;
-
 
 // connect to JIRA
 var jira = new JiraClient( {
@@ -155,7 +148,7 @@ var getIssueTable = function (issues, cb) {
 // });
 ///--------- new attempt below
 
-var SlackBot = require('slackbots');
+
  
 // create a bot 
 var bot = new SlackBot({
@@ -166,21 +159,14 @@ var bot = new SlackBot({
 
 bot.on('message', function(data) {
    if (data) {
-    console.log("here is the datum", data);
-    console.log(data.type);
-    console.log(data.text);
-    
-    
-    //bot.postMessageToUser(data.user, 'hi');
-    if (data.text && data.user)
-    bot.postMessageToUser('praful', data.text).fail(function(data) {
-    		//data = { ok: false, error: 'user_not_found' } 
-    });
-
-    //if (data.type == "message" && data.text == "feedback") {
-	   // 	bot.postMessageToUser(data.user, 'Sending you current problems...', function (data) {
-	   // 		console.log(data);
-	   // 	});
-   	// }   	
+	console.log("here is the datum", data);
+	console.log(data.type);
+	console.log(data.text);
+	
+	//bot.postMessageToUser(data.user, 'hi');
+	if (data.text && data.user)
+	bot.postMessageToUser('praful', data.text).fail(function(data) {
+	    	//data = { ok: false, error: 'user_not_found' } 
+	});
    }
 });
