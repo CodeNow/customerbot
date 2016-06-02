@@ -171,7 +171,8 @@ bot.on('message', function(data) {
     console.log(data.text);
     
     
-    bot.postMessageToUser(data.user, 'hi');
+    //bot.postMessageToUser(data.user, 'hi');
+    if (data.text)
     bot.postMessageToUser('praful', 'hi').fail(function(data) {
     		//data = { ok: false, error: 'user_not_found' } 
     });
