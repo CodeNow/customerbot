@@ -14,7 +14,7 @@
     "jira-connector":"*",
     "intercom-client" : "*",
     "async" : "*"
-  }
+  },
   "engines": {
     "node": "0.10.x"
   }
