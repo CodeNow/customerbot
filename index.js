@@ -169,26 +169,32 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
   var channel = message.channel;
   var text = message.text;
 
- rtm.sendMessage("do not understand this command", channel);
- 
- // if (text == "feedback") {
- // 	rtm.sendMessage("Sending current problems... hang tight.", channel);
-	// // jira.search.search({
-	// //     jql: 'type = feedback',
-	// //     maxResults: '1000'
-	// // }, function(error, issue) {
-	// //     if (error) {
-	// //     	// send error message
-	// //     } else {
-	// //     	getIssueTable(issue, function (err, results){
-	// //     		// console.log(results);
-	// //     		rtm.sendMessage(getMessageFromTable(results), channel);
-	// //     	});
-	// //     }
-	// // });
+  if (text == "feedback") {
+  	rtm.sendMessage("Sending current problems... hang tight.", channel);
+	jira.search.search({
+	    jql: 'type = feedback',
+	    maxResults: '1000'
+	}, function(error, issue) {
+	    if (error) {
+	    	// send error message
+	    } else {
+	    	getIssueTable(issue, function (err, results){
+	    		// console.log(results);
+	    		rtm.sendMessage(getMessageFromTable(results), channel);
+	    	});
+	    }
+	});
 	
- // } else  {
- //   rtm.sendMessage("do not understand this command", channel);
- // }
+  } else  {
+  	var Table = require('cli-table');
+	var table = new Table({ head: ["", "Top Header 1", "Top Header 2"] });
+	 
+	table.push(
+	    { 'Left Header 1': ['Value Row 1 Col 1', 'Value Row 1 Col 2'] }
+	  , { 'Left Header 2': ['Value Row 2 Col 1', 'Value Row 2 Col 2'] }
+	);
+	 
+    rtm.sendMessage("table.toString(), channel);
+  }
 
 });
