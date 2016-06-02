@@ -126,28 +126,43 @@ var getIssueTable = function (issues, cb) {
 /// UTILITY FUNCTIONS ------------------------------------------------------------
 
 // ##### MAIN DISPATCH #####
-rtm.on(RTM_EVENTS.MESSAGE, function(message) {  
-  var channel = message.channel;
-  var text = message.text;
+// rtm.on(RTM_EVENTS.MESSAGE, function(message) {  
+//   var channel = message.channel;
+//   var text = message.text;
 
-  if (text == "feedback") {
-  	rtm.sendMessage("Sending current problems... hang tight.", channel);
-	jira.search.search({
-	    jql: 'type = feedback',
-	    maxResults: '1000'
-	}, function(error, issue) {
-	    if (error) {
-	    	// send error message
-	    } else {
-	    	getIssueTable(issue, function (err, results){
-	    		console.log(results);
-	    		rtm.sendMessage(results, channel);
-	    	});
-	    }
-	});
+//   if (text == "feedback") {
+//   	rtm.sendMessage("Sending current problems... hang tight.", channel);
+// 	jira.search.search({
+// 	    jql: 'type = feedback',
+// 	    maxResults: '1000'
+// 	}, function(error, issue) {
+// 	    if (error) {
+// 	    	// send error message
+// 	    } else {
+// 	    	getIssueTable(issue, function (err, results){
+// 	    		console.log(results);
+// 	    		rtm.sendMessage(results, channel);
+// 	    	});
+// 	    }
+// 	});
 	
-  } else  {
-    rtm.sendMessage("I do not understand this command", channel);
-  }
+//   } else  {
+//     rtm.sendMessage("I do not understand this command", channel);
+//   }
 
+// });
+///--------- new attempt below
+
+var SlackBot = require('slackbots');
+ 
+// create a bot 
+var bot = new SlackBot({
+    token: process.env.BOT_API_KEY, // Add a bot https://my.slack.com/services/new/bot and put the token  
+    name: 'Customer Bot'
+});
+
+
+bot.on('message', function(data) {
+    // all ingoing events https://api.slack.com/rtm 
+    console.log(data);
 });
