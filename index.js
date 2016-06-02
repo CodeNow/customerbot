@@ -170,7 +170,7 @@ bot.on('message', function(data) {
     console.log(data.type);
     console.log(data.text);
     
-    if (data.type == "message" && data.text == "feedback") {
+    //if (data.type == "message" && data.text == "feedback") {
 	   // 	bot.postMessageToUser(data.user, 'Sending you current problems...', function (data) {
 	   // 		console.log(data);
 	   // 	});
