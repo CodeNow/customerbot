@@ -162,12 +162,12 @@ bot.on('message', function(data) {
 	console.log(data);
 	
 	if (data.text && data.user) {
-		bot.postMessageToUser('Sending you current problems hang tight...', data.text).fail(function(data) {
+		bot.postMessageToUser('praful', 'Sending you current problems hang tight...').fail(function(data) {
 	    		//data = { ok: false, error: 'user_not_found' } 
 	    		console.log(data);
 		});				
 	} else {
-		bot.postMessageToUser('I do not understand this command.', data.text).fail(function(data) {
+		bot.postMessageToUser('praful', 'I do not understand this command.').fail(function(data) {
 	    		//data = { ok: false, error: 'user_not_found' } 
 	    		console.log(data);
 		});		
