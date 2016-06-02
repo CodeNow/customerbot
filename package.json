@@ -1,11 +1,12 @@
 {
   "name": "Customer Bot",
   "version": "1.0.0",
-  "description": "Customer Bot",
-  "author": {
-    "name": "Praful Rana"
+  "description": "Runnable Demo Multi Tier Back End",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js"
   },
-  "license": "MIT",
+  "author": "Praful Rana",
   "dependencies": {
     "progress": "^1.1.8",
     "request": "^2.60.0",
@@ -13,5 +14,8 @@
     "jira-connector":"*",
     "intercom-client" : "*",
     "async" : "*"
+  }
+  "engines": {
+    "node": "0.10.x"
   }
 }
