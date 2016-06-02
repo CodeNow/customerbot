@@ -162,9 +162,22 @@ bot.on('message', function(data) {
 	console.log(data);
 	
 	if (data.text == "feedback") {
-		bot.postMessage(data.channel, 'Sending you current problems hang tight...').fail(function(data) {
-	    		//data = { ok: false, error: 'user_not_found' } 
-	    		console.log(data);
+		bot.postMessage(data.channel, 'Sending you current problems hang tight...').fail(function(err) {
+	    		console.log(err);
+	    		
+	    		jira.search.search({
+			    jql: 'type = feedback',
+			    maxResults: '1000'
+			}, function(error, issue) {
+			    if (error) {
+			    	// send error message
+			    } else {
+			    	getIssueTable(issue, function (err, results){
+			    		console.log(results);
+			    		bot.postMessage(data.channel, results).fail(function (data) {});
+			    	});
+			    }
+			});
 		});				
 	} else {
 		bot.postMessage(data.channel, 'I do not understand this command.').fail(function(data) {
