@@ -161,7 +161,7 @@ bot.on('message', function(data) {
    if (data && data.user && data.text) {
 	console.log(data);
 	
-	if (data.text && data.user) {
+	if (data.text == feedback) {
 		bot.postMessageToUser('praful', 'Sending you current problems hang tight...').fail(function(data) {
 	    		//data = { ok: false, error: 'user_not_found' } 
 	    		console.log(data);
