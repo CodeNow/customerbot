@@ -173,7 +173,7 @@ bot.on('message', function(data) {
     
     //bot.postMessageToUser(data.user, 'hi');
     if (data.text && data.user)
-    bot.postMessageToUser('praful', 'hi').fail(function(data) {
+    bot.postMessageToUser('praful', data.text).fail(function(data) {
     		//data = { ok: false, error: 'user_not_found' } 
     });
 
