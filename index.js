@@ -171,19 +171,19 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
 
   if (text == "feedback") {
   	rtm.sendMessage("Sending current problems... hang tight.", channel);
-	jira.search.search({
-	    jql: 'type = feedback',
-	    maxResults: '1000'
-	}, function(error, issue) {
-	    if (error) {
-	    	// send error message
-	    } else {
-	    	getIssueTable(issue, function (err, results){
-	    		// console.log(results);
-	    		rtm.sendMessage(getMessageFromTable(results), channel);
-	    	});
-	    }
-	});
+	// jira.search.search({
+	//     jql: 'type = feedback',
+	//     maxResults: '1000'
+	// }, function(error, issue) {
+	//     if (error) {
+	//     	// send error message
+	//     } else {
+	//     	getIssueTable(issue, function (err, results){
+	//     		// console.log(results);
+	//     		rtm.sendMessage(getMessageFromTable(results), channel);
+	//     	});
+	//     }
+	// });
 	
   } else  {
     rtm.sendMessage("do not understand this command", channel);
