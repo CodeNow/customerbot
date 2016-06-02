@@ -13,5 +13,5 @@
     "jira-connector":"*",
     "intercom-client" : "*",
     "async" : "*"
-  },
+  }
 }
