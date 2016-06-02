@@ -162,7 +162,7 @@ bot.on('message', function(data) {
 	console.log(data);
 	
 	if (data.text == "feedback") {
-		bot.postMessageToUser('praful', 'Sending you current problems hang tight...').fail(function(data) {
+		bot.postMessageToUser(data.channel, 'Sending you current problems hang tight...').fail(function(data) {
 	    		//data = { ok: false, error: 'user_not_found' } 
 	    		console.log(data);
 		});				
