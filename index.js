@@ -159,14 +159,17 @@ var bot = new SlackBot({
 
 bot.on('message', function(data) {
    if (data && data.user && data.text) {
-
+	console.log(data);
+	
 	if (data.text && data.user) {
 		bot.postMessageToUser('Sending you current problems hang tight...', data.text).fail(function(data) {
 	    		//data = { ok: false, error: 'user_not_found' } 
+	    		console.log(data);
 		});				
 	} else {
 		bot.postMessageToUser('I do not understand this command.', data.text).fail(function(data) {
 	    		//data = { ok: false, error: 'user_not_found' } 
+	    		console.log(data);
 		});		
 	}
    }
