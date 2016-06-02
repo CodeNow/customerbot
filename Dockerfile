@@ -1,6 +1,6 @@
 FROM node
-ADD package.json /bot/package.json
+#ADD package.json /bot/package.json
 WORKDIR /bot
-RUN npm install
 ADD . .
+RUN npm install
 CMD node index.js
