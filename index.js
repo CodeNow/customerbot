@@ -167,6 +167,7 @@ var bot = new SlackBot({
 bot.on('message', function(data) {
     if (data.type == "message" && data.text == "feedback") {
     	bot.postMessageToUser(data.user, 'Sending you current problems...', function (data) {
+    		console.log(data);
     	});
     }
     // all ingoing events https://api.slack.com/rtm 
