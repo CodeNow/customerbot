@@ -223,6 +223,21 @@ var addNote = function (message, companyName, cb) {
 	});
 }
 
+var findUserById = function (id, cb) {
+	bot.getUsers().then(function (data){
+		var found = false;
+
+		data.members.forEach(function (member) {
+			if (id == member.id) {
+				found = true;
+				cb(member.name);
+			}
+		});
+		if (!found)
+			cb(null);
+	});
+}
+
 
 /// UTILITY FUNCTIONS ------------------------------------------------------------
 
@@ -297,11 +312,15 @@ bot.on('message', function(data) {
 									bot.postMessage(data.channel, 'there was an error tagging this company').fail(function (errr) {console.log(errr.toString);});
 								}
 								else {
-									// add a note to the navi user (since we can't add notes to Companies)
-									addNote("Praful added " + JIRA + " because " + notes, companyName, function (message) {
-										bot.postMessage(data.channel, 'Company tagged').fail(function (errr) {console.log(errr.toString);});
-									});
 									
+									findUserById (data.user, function (username) {
+										// add a note to the navi user (since we can't add notes to Companies) 
+										addNote(username + " tagged this company with  " + JIRA + " because " + notes, companyName, function (message) {
+											bot.postMessage(data.channel, username + ' tagged ' + companyName).fail(function (errr) {console.log(errr.toString);});
+											bot.postMessage(LogChannel, username + ' tagged ' + companyName + " because " + notes).fail(function (errr) {console.log(errr.toString);});
+										});										
+									});
+
 								}
 									
 							});
