@@ -175,7 +175,7 @@ bot.on('message', function(data) {
 		    } else {
 		    	getIssueTable(issue, function (err, results){
 		    		console.log(results);
-		    		bot.postMessage(data.channel, results).fail(function (errr) {console.log("error: " + errr.toString());});
+		    		bot.postMessage(data.channel, results).fail(function (errr) {console.log(errr.toString);});
 		    	});
 		    }
 		});
