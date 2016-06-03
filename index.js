@@ -199,6 +199,31 @@ var getCompanyFromName = function (company_name, cb) {
 	});	
 }
 
+var addNote = function (message, companyName, cb) {
+	client.users.find({ user_id: 'navi-' + companyName }, function (err, res) {
+		if (err) {
+			// navi user does not exist; skipping notes.
+			cb('navi user does not exist, skipping');
+		} else {
+			// Create a note
+			var note = {
+			  admin_id: 22382,
+			  body: message,
+			  id: res.body.id
+			};
+
+			client.notes.create(note, function (err1, res) {
+				if (err1) {
+					cb('ran into an error adding the note' + JSON.stringify(err1));
+				} else {
+					cb('successfully added note');
+				}
+			});
+		}
+	});
+}
+
+
 /// UTILITY FUNCTIONS ------------------------------------------------------------
 
  
@@ -271,8 +296,14 @@ bot.on('message', function(data) {
 									console.log(company);
 									bot.postMessage(data.channel, 'there was an error tagging this company').fail(function (errr) {console.log(errr.toString);});
 								}
-								else 
-									bot.postMessage(data.channel, 'Company tagged').fail(function (errr) {console.log(errr.toString);});
+								else {
+									// add a note to the navi user (since we can't add notes to Companies)
+									addNote(notes, companyName, function (message) {
+										bot.postMessage(data.channel, 'Company tagged').fail(function (errr) {console.log(errr.toString);});
+									});
+									
+								}
+									
 							});
 						}
 					})
