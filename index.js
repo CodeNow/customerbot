@@ -263,7 +263,14 @@ bot.on('message', function(data) {
 						if (!company) {
 							bot.postMessage(data.channel, 'Company does not exist in Intercom; format for tagging = tag <company name> <SAN number> <notes>').fail(function (errr) {console.log(errr.toString);});
 						} else {
-							bot.postMessage(data.channel, 'Going to tag company').fail(function (errr) {console.log(errr.toString);});
+							client.tags.tag({ name: issue, companies: [{ id: company.id }] }, function (err, res) {
+								
+								
+								if (err)
+									bot.postMessage(data.channel, 'there was an error tagging this company').fail(function (errr) {console.log(errr.toString);});
+								else 
+									bot.postMessage(data.channel, 'Company tagged').fail(function (errr) {console.log(errr.toString);});
+							});
 						}
 					})
 				}
