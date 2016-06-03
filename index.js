@@ -118,7 +118,7 @@ var getIssueTable = function (issues, cb) {
 var getMessageFromTable = function (table) {
 	// console.log(table);
 	results = "";
-	results += "Here are the problems that we have no work around for\n";
+	results += "*Here are the problems that we have no work around for*\n";
 
 	table["problem"].forEach(function (problem) {
 		// console.log(problem);
@@ -127,7 +127,7 @@ var getMessageFromTable = function (table) {
 			problem["count"] + "\n companies";
 	});
 
-	results += "\n\nHere are the onboarding roblems that support had to help with\n";
+	results += "\n\n*Here are the onboarding roblems that support had to help with*\n";
 
 	table["support"].forEach(function (problem) {
 		// console.log(problem);
@@ -136,7 +136,7 @@ var getMessageFromTable = function (table) {
 			problem["count"] + "companies\n";
 	});
 
-	results += "\n\nHere is the feedback users have been giving us\n";
+	results += "\n\n*Here is the feedback users have been giving us*\n";
 
 	table["feedback"].forEach(function (problem) {
 		console.log(problem);
@@ -163,9 +163,9 @@ bot.on('message', function(data) {
 	console.log(data);
 	
 	if (data.text == "feedback") {
-		// bot.postMessage(data.channel, 'Sending you current problems hang tight...').fail(function(err) {
-	 //   		console.log(err);
-		// });			
+		bot.postMessage(data.channel, 'Sending you current problems hang tight...').fail(function(err) {
+	    		console.log(err);
+		});			
 		
 		jira.search.search({
 		    jql: 'type = feedback',
