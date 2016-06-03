@@ -114,40 +114,47 @@ var getIssueTable = function (issues, cb) {
 	});
 }
 
+
+var getMessageFromTable = function (table) {
+	// console.log(table);
+	results = "";
+	results += "Here are the problems that we have no work around for\n";
+	results += "KEY \t title \t count \n";
+
+
+
+	table["problem"].forEach(function (problem) {
+		// console.log(problem);
+		results += problem["key"] + "\t" + 
+			problem["title"] + "\t" +
+			problem["count"] + "\n";
+	});
+
+	results += "\n\nHere are the onboarding roblems that support had to help with\n";
+	results += "KEY \t title \t count \n";
+
+	table["support"].forEach(function (problem) {
+		// console.log(problem);
+		results += problem["key"] + "\t" + 
+			problem["title"] + "\t" +
+			problem["count"] + "\n";
+	});
+
+	results += "\n\nHere is the feedback users have been giving us\n";
+	results += "KEY \t title \t count \n";
+
+
+	table["feedback"].forEach(function (problem) {
+		console.log(problem);
+		results += problem["key"] + "\t" + 
+			problem["title"] + "\t" +
+			problem["count"] + "\n";
+	});
+
+	return results;
+}
+
 /// UTILITY FUNCTIONS ------------------------------------------------------------
-
-// ##### MAIN DISPATCH #####
-
-// var rtm = new RtmClient(token, { logLevel: 'info' });  
-// rtm.start();
-
-// rtm.on(RTM_EVENTS.MESSAGE, function(message) {  
-//   var channel = message.channel;
-//   var text = message.text;
-
-//   if (text == "feedback") {
-//   	rtm.sendMessage("Sending current problems... hang tight.", channel);
-// 	jira.search.search({
-// 	    jql: 'type = feedback',
-// 	    maxResults: '1000'
-// 	}, function(error, issue) {
-// 	    if (error) {
-// 	    	// send error message
-// 	    } else {
-// 	    	getIssueTable(issue, function (err, results){
-// 	    		console.log(results);
-// 	    		rtm.sendMessage(results, channel);
-// 	    	});
-// 	    }
-// 	});
-	
-//   } else  {
-//     rtm.sendMessage("I do not understand this command", channel);
-//   }
-
-// });
-///--------- new attempt below
-
 
  
 // create a bot 
@@ -175,7 +182,7 @@ bot.on('message', function(data) {
 		    } else {
 		    	getIssueTable(issue, function (err, results){
 		    		console.log(results);
-		    		bot.postMessage(data.channel, JSON.stringify(results)).fail(function (errr) {console.log(errr.toString);});
+		    		bot.postMessage(data.channel, getMessageFromTable(results)).fail(function (errr) {console.log(errr.toString);});
 		    	});
 		    }
 		});
