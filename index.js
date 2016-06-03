@@ -263,7 +263,7 @@ bot.on('message', function(data) {
 						if (!company) {
 							bot.postMessage(data.channel, 'Company does not exist in Intercom; format for tagging = tag <company name> <SAN number> <notes>').fail(function (errr) {console.log(errr.toString);});
 						} else {
-							client.tags.tag({ name: issue, companies: [{ id: company.id }] }, function (err, res) {
+							client.tags.tag({ name: JIRA, companies: [{ id: company.id }] }, function (err, res) {
 								
 								
 								if (err){
