@@ -148,6 +148,57 @@ var getMessageFromTable = function (table) {
 	return results;
 }
 
+var getCompanyFromName = function (company_name, cb) {
+
+	var companyList = [];
+
+
+	var recursiveFetchCompaines = function (err, results) {
+		if (err)
+			console.log(err);
+
+		if (!results || results.body.pages.page > results.body.pages.total_pages) {
+
+			var found = false;
+
+			companyList.forEach(function (company){
+				if (company.name == company_name) {
+					found = true;
+					cb(company);
+				}
+			});
+			if (found == false) {
+				cb(null);
+			}
+			
+			
+		} else {
+			results.body.companies.forEach(function (company) {
+				companyList.push(company);
+			});
+
+			client.nextPage(results.body.pages, recursiveFetchCompaines);
+		}
+	}
+
+
+	client.companies.list(function (err, results) {
+		var ctr = 0;
+		var maxPage = 0;
+
+		var maxPage = results.body.pages.total_pages;
+
+		if (err)
+			console.log(err);
+
+		results.body.companies.forEach(function (company) {
+			companyList.push(company);
+		});
+
+		client.nextPage(results.body.pages, recursiveFetchCompaines);
+	});	
+}
+
 /// UTILITY FUNCTIONS ------------------------------------------------------------
 
  
