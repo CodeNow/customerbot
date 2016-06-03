@@ -249,7 +249,7 @@ var bot = new SlackBot({
 });
 
 
-var LogChannel = "#customerbot-log";
+var LogChannel = "#intercom";
 
 bot.on('message', function(data) {
    if (data && data.user && data.text) {
@@ -304,8 +304,6 @@ bot.on('message', function(data) {
 							bot.postMessage(data.channel, 'Company does not exist in Intercom; format for tagging = tag <company name> <SAN number> <notes>').fail(function (errr) {console.log(errr.toString);});
 						} else {
 							client.tags.tag({ name: JIRA, companies: [{ id: company.id }] }, function (err, res) {
-								
-								
 								if (err){
 									console.log(err);
 									console.log(company);
