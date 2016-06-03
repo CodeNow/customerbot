@@ -185,6 +185,8 @@ bot.on('message', function(data) {
 		
 	} else if (data.text.indexOf("tag") == 0) {
 		bot.postMessage(data.channel, 'trying to tag').fail(function (errr) {console.log(errr.toString);});
+	} else if (data.text == "help") {
+		bot.postMessage(data.channel, 'I only got 2 commands that I listen to: `tag` and `feedback`').fail(function (errr) {console.log(errr.toString);});
 	}
 	else {
 		bot.postMessage(data.channel, 'I do not understand this command').fail(function(data) {
