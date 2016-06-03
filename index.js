@@ -132,7 +132,7 @@ var getMessageFromTable = function (table) {
 
 	table["support"].forEach(function (problem) {
 		// console.log(problem);
-		results += problem["key"] + "\t" + 
+		results += "<https://runnable.atlassian.net/browse/" + problem["key"] + "|" + problem["key"] + ">" + "\t" +
 			problem["title"] + "\t" +
 			problem["count"] + "\n";
 	});
@@ -143,7 +143,7 @@ var getMessageFromTable = function (table) {
 
 	table["feedback"].forEach(function (problem) {
 		console.log(problem);
-		results += problem["key"] + "\t" + 
+		results += "<https://runnable.atlassian.net/browse/" + problem["key"] + "|" + problem["key"] + ">" + "\t" +
 			problem["title"] + "\t" +
 			problem["count"] + "\n";
 	});
