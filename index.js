@@ -124,28 +124,25 @@ var getMessageFromTable = function (table) {
 		// console.log(problem);
 		results += "<https://runnable.atlassian.net/browse/" + problem["key"] + "|" + problem["key"] + ">" + "\t" + 
 			problem["title"] + "\t" +
-			problem["count"] + "\n";
+			problem["count"] + "\n companies";
 	});
 
 	results += "\n\nHere are the onboarding roblems that support had to help with\n";
-	results += "KEY \t title \t count \n";
 
 	table["support"].forEach(function (problem) {
 		// console.log(problem);
 		results += "<https://runnable.atlassian.net/browse/" + problem["key"] + "|" + problem["key"] + ">" + "\t" +
 			problem["title"] + "\t" +
-			problem["count"] + "\n";
+			problem["count"] + "companies\n";
 	});
 
 	results += "\n\nHere is the feedback users have been giving us\n";
-	results += "KEY \t title \t count \n";
-
 
 	table["feedback"].forEach(function (problem) {
 		console.log(problem);
 		results += "<https://runnable.atlassian.net/browse/" + problem["key"] + "|" + problem["key"] + ">" + "\t" +
 			problem["title"] + "\t" +
-			problem["count"] + "\n";
+			problem["count"] + "companies\n";
 	});
 
 	return results;
