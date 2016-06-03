@@ -260,7 +260,7 @@ bot.on('message', function(data) {
 					bot.postMessage(data.channel, 'Issue is not Filed on Jira; format for tagging = tag <company name> <SAN number> <notes>').fail(function (errr) {console.log(errr.toString);});
 				} else {
 					getCompanyFromName(companyName, function (company) {
-						if (!companyName) {
+						if (!company) {
 							bot.postMessage(data.channel, 'Company does not exist in Intercom; format for tagging = tag <company name> <SAN number> <notes>').fail(function (errr) {console.log(errr.toString);});
 						} else {
 							bot.postMessage(data.channel, 'Going to tag company').fail(function (errr) {console.log(errr.toString);});
