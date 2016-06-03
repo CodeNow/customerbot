@@ -162,9 +162,9 @@ bot.on('message', function(data) {
 	console.log(data);
 	
 	if (data.text == "feedback") {
-		bot.postMessage(data.channel, 'Sending you current problems hang tight...').fail(function(err) {
-	    		console.log(err);
-		});			
+		// bot.postMessage(data.channel, 'Sending you current problems hang tight...').fail(function(err) {
+	 //   		console.log(err);
+		// });			
 		
 		jira.search.search({
 		    jql: 'type = feedback',
@@ -179,9 +179,9 @@ bot.on('message', function(data) {
 		    	});
 		    }
 		});
+		
 	} else {
 		bot.postMessage(data.channel, 'I do not understand this command.').fail(function(data) {
-	    		//data = { ok: false, error: 'user_not_found' } 
 	    		console.log(data);
 		});		
 	}
