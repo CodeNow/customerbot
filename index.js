@@ -158,6 +158,8 @@ var bot = new SlackBot({
 });
 
 
+var LogChannel = "#analytics";
+
 bot.on('message', function(data) {
    if (data && data.user && data.text) {
 	console.log(data);
@@ -181,7 +183,10 @@ bot.on('message', function(data) {
 		    }
 		});
 		
-	} else {
+	} else if (data.text.indexOf("tag") == 0) {
+		bot.postMessage(data.channel, 'trying to tag').fail(function (errr) {console.log(errr.toString);});
+	}
+	else {
 		bot.postMessage(data.channel, 'I do not understand this command').fail(function(data) {
 	    		console.log(data);
 		});		
