@@ -266,8 +266,11 @@ bot.on('message', function(data) {
 							client.tags.tag({ name: issue, companies: [{ id: company.id }] }, function (err, res) {
 								
 								
-								if (err)
+								if (err){
+									console.log(err);
+									console.log(company);
 									bot.postMessage(data.channel, 'there was an error tagging this company').fail(function (errr) {console.log(errr.toString);});
+								}
 								else 
 									bot.postMessage(data.channel, 'Company tagged').fail(function (errr) {console.log(errr.toString);});
 							});
