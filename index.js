@@ -333,9 +333,9 @@ bot.on('message', function(data) {
 		bot.postMessage(data.channel, 'I only got 2 commands that I listen to: `tag` and `feedback`').fail(function (errr) {console.log(errr.toString);});
 	}
 	else {
-		bot.postMessage(data.channel, 'I do not understand this command').fail(function(data) {
-	    		console.log(data);
-		});		
+		// bot.postMessage(data.channel, 'I do not understand this command').fail(function(data) {
+	 //   		console.log(data);
+		// });		
 	}
    }
 });
