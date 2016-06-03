@@ -119,13 +119,10 @@ var getMessageFromTable = function (table) {
 	// console.log(table);
 	results = "";
 	results += "Here are the problems that we have no work around for\n";
-	results += "KEY \t title \t count \n";
-
-
 
 	table["problem"].forEach(function (problem) {
 		// console.log(problem);
-		results += problem["key"] + "\t" + 
+		results += "<https://runnable.atlassian.net/browse/" + problem["key"] + "|" + problem["key"] + ">" + "\t" + 
 			problem["title"] + "\t" +
 			problem["count"] + "\n";
 	});
@@ -188,7 +185,7 @@ bot.on('message', function(data) {
 		});
 		
 	} else {
-		bot.postMessage(data.channel, '<http://google.com|I do not understand this command.>').fail(function(data) {
+		bot.postMessage(data.channel, 'I do not understand this command').fail(function(data) {
 	    		console.log(data);
 		});		
 	}
