@@ -298,7 +298,7 @@ bot.on('message', function(data) {
 								}
 								else {
 									// add a note to the navi user (since we can't add notes to Companies)
-									addNote(notes, companyName, function (message) {
+									addNote("Praful added " + JIRA + " because " + notes, companyName, function (message) {
 										bot.postMessage(data.channel, 'Company tagged').fail(function (errr) {console.log(errr.toString);});
 									});
 									
