@@ -200,7 +200,7 @@ bot.on('message', function(data) {
 			var i = 3;
 			var notes = "";
 			
-			for (i = 3; i < split.length(); i++) {
+			for (i = 3; i < split.length; i++) {
 				notes += split[i] + " ";
 			}
 			
