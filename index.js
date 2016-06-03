@@ -184,7 +184,32 @@ bot.on('message', function(data) {
 		});
 		
 	} else if (data.text.indexOf("tag") == 0) {
-		bot.postMessage(data.channel, 'trying to tag').fail(function (errr) {console.log(errr.toString);});
+		// bot.postMessage(data.channel, 'trying to tag').fail(function (errr) {console.log(errr.toString);});
+		
+		//process tag args
+		var split = data.text.split(' ');
+		
+		var companyName = split[1];
+		
+		var JIRA = split[2];
+		
+		// if no notes
+		if (!split[3]) {
+			bot.postMessage(data.channel, 'No notes detected; format for tagging = tag <company name> <SAN number> <notes>').fail(function (errr) {console.log(errr.toString);});
+		} else {
+			var i = 3;
+			var notes = "";
+			
+			for (i = 3; i < split.length(); i++) {
+				notes += split[i] + " ";
+			}
+			
+			bot.postMessage(data.channel, 'company ' + companyName).fail(function (errr) {console.log(errr.toString);});
+			bot.postMessage(data.channel, 'JIRA ' + JIRA).fail(function (errr) {console.log(errr.toString);});
+			bot.postMessage(data.channel, 'notes ' + notes).fail(function (errr) {console.log(errr.toString);});
+			
+		}
+		
 	} else if (data.text == "help") {
 		bot.postMessage(data.channel, 'I only got 2 commands that I listen to: `tag` and `feedback`').fail(function (errr) {console.log(errr.toString);});
 	}
