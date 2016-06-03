@@ -249,7 +249,7 @@ var bot = new SlackBot({
 });
 
 
-var LogChannel = "#analytics";
+var LogChannel = "#customerbot-log";
 
 bot.on('message', function(data) {
    if (data && data.user && data.text) {
@@ -316,8 +316,8 @@ bot.on('message', function(data) {
 									findUserById (data.user, function (username) {
 										// add a note to the navi user (since we can't add notes to Companies) 
 										addNote(username + " tagged this company with  " + JIRA + " because " + notes, companyName, function (message) {
-											bot.postMessage(data.channel, username + ' tagged ' + companyName).fail(function (errr) {console.log(errr.toString);});
-											bot.postMessage(LogChannel, username + ' tagged ' + companyName + " because " + notes).fail(function (errr) {console.log(errr.toString);});
+											bot.postMessage(data.channel, username + ' tagged ' + companyName + " with " + JIRA).fail(function (errr) {console.log(errr.toString);});
+											bot.postMessage(LogChannel, username + ' tagged ' + companyName + " with " + JIRA + " because " + notes).fail(function (errr) {console.log(errr.toString);});
 										});										
 									});
 
