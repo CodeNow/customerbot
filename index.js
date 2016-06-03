@@ -124,7 +124,7 @@ var getMessageFromTable = function (table) {
 		// console.log(problem);
 		results += "<https://runnable.atlassian.net/browse/" + problem["key"] + "|" + problem["key"] + ">" + "\t" + 
 			problem["title"] + "\t" +
-			problem["count"] + "\n companies";
+			problem["count"] + " companies\n";
 	});
 
 	results += "\n\n*Here are the onboarding roblems that support had to help with*\n";
@@ -133,7 +133,7 @@ var getMessageFromTable = function (table) {
 		// console.log(problem);
 		results += "<https://runnable.atlassian.net/browse/" + problem["key"] + "|" + problem["key"] + ">" + "\t" +
 			problem["title"] + "\t" +
-			problem["count"] + "companies\n";
+			problem["count"] + " companies\n";
 	});
 
 	results += "\n\n*Here is the feedback users have been giving us*\n";
@@ -142,7 +142,7 @@ var getMessageFromTable = function (table) {
 		console.log(problem);
 		results += "<https://runnable.atlassian.net/browse/" + problem["key"] + "|" + problem["key"] + ">" + "\t" +
 			problem["title"] + "\t" +
-			problem["count"] + "companies\n";
+			problem["count"] + " companies\n";
 	});
 
 	return results;
