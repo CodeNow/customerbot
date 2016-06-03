@@ -188,7 +188,7 @@ bot.on('message', function(data) {
 		});
 		
 	} else {
-		bot.postMessage(data.channel, 'I do not understand this command.').fail(function(data) {
+		bot.postMessage(data.channel, '<http://google.com|I do not understand this command.>').fail(function(data) {
 	    		console.log(data);
 		});		
 	}
