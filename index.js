@@ -237,7 +237,7 @@ var findUserById = function (id, cb) {
 			cb(null);
 	});
 }
-var companyList = [];
+
 
 var countUsers = function (company, cb) {
 	var ctr = 0;
@@ -295,6 +295,8 @@ var processList = function (companyList, cb) {
 }
 
 var getSegmentCount = function (segment_id, fcb) {
+	var companyList = [];
+	
 	client.companies.listBy({segment_id: segment_id},function (err, results) {
 
 		var recursiveFetchCompaines = function (err, results) {
