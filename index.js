@@ -47,7 +47,7 @@ var generateTagsTable = function (cb) {
 		   		getTagCount(e.id, function (count) {
 					r[e.name] = count;
 				   	icb();
-					// console.log(r);
+					// console.log(c);
 		   		});
 		   } else {
 		   		icb();
@@ -237,6 +237,7 @@ var findUserById = function (id, cb) {
 			cb(null);
 	});
 }
+var companyList = [];
 
 var countUsers = function (company, cb) {
 	var ctr = 0;
