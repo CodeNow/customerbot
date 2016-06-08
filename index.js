@@ -238,6 +238,100 @@ var findUserById = function (id, cb) {
 	});
 }
 
+var countUsers = function (company, cb) {
+	var ctr = 0;
+
+	client.companies.listUsers({ id: company.id}, function (err, res) {
+		var users = res.body.users;
+
+		if (users) {
+
+			async.forEachSeries(users, function (user, icb) {
+				if (!user.user_id)
+					ctr++
+				else 
+					console.log("skipping user", user.user_id);
+
+				icb();
+			}, function (err) {
+				console.log("actually calling back with", ctr);
+	    		cb(ctr);
+			});		
+
+
+
+		} else {
+			console.log("skipping ... " + company.company_id + " has no users");
+		}
+	});	
+}
+
+
+// countUsers()
+
+// NOTE: WE ARE NOT PAGINATING USERS.
+// IN THE FUTURE WHEN WE HAVE MASSIVE SIGN UPS, THIS WILL BE A PROBLEM
+var processList = function (companyList, cb) {
+	// console.log(companyList[0].company_id);
+	var rez = {};
+	var total = 0;
+
+	async.forEachSeries(companyList, function (company, icb) {
+		console.log("counting users for", company.company_id);
+		countUsers(company, function (count) {
+			rez[company.company_id] = count;
+			total += count;
+			icb();
+		});
+	   
+	}, function (err) {
+		console.log('here');
+	    console.log(rez);
+	    console.log("count is", total);
+	    cb(total);
+
+	});		
+}
+
+var getSegmentCount = function (segment_id, fcb) {
+	client.companies.listBy({segment_id: segment_id},function (err, results) {
+
+		var recursiveFetchCompaines = function (err, results) {
+			if (err)
+				console.log(err);
+
+			if (!results || results.body.pages.page > results.body.pages.total_pages) {
+				// console.log(companyList);
+				console.log("done fetching companies....");
+				processList(companyList, function (count) {
+					fcb(count); 
+				});
+				
+			} else {
+				results.body.companies.forEach(function (company) {
+					companyList.push(company);
+				});
+
+				client.nextPage(results.body.pages, recursiveFetchCompaines);
+			}
+		}	
+		
+
+		var ctr = 0;
+		var maxPage = 0;
+
+		var maxPage = results.body.pages.total_pages;
+
+		console.log(err);
+
+		results.body.companies.forEach(function (company) {
+			companyList.push(company);
+		});
+
+		client.nextPage(results.body.pages, recursiveFetchCompaines);
+	});
+}
+
 
 /// UTILITY FUNCTIONS ------------------------------------------------------------
 
@@ -330,7 +424,19 @@ bot.on('message', function(data) {
 		}
 		
 	} else if (data.text == "help") {
-		bot.postMessage(data.channel, 'I only got 2 commands that I listen to: `tag` and `feedback`').fail(function (errr) {console.log(errr.toString);});
+		bot.postMessage(data.channel, 'I only got 3 commands that I listen to: `tag`, `feedback` and `funnel`.').fail(function (errr) {console.log(errr.toString);});
+	} else if (data.text == "funnel") {
+		getSegmentCount("570fd849c04953a148000055", function (count) {
+			bot.postMessage(data.channel, "Users with No Repo Containers: " + count).fail(function (errr) {console.log(errr.toString);});
+		});
+		getSegmentCount("57150d1121e024d1e6000034", function (count) {
+			bot.postMessage(data.channel, "Users with 1+ Repo Containers but who are *not* setup: " + count).fail(function (errr) {console.log(errr.toString);});
+		});
+		
+		getSegmentCount("571573d2dceccc2974000086", function (count) {
+			bot.postMessage(data.channel, "Users in Setup: " + count).fail(function (errr) {console.log(errr.toString);});
+		});
+
 	}
 	else {
 		// bot.postMessage(data.channel, 'I do not understand this command').fail(function(data) {
