@@ -427,6 +427,8 @@ bot.on('message', function(data) {
 	} else if (data.text == "help") {
 		bot.postMessage(data.channel, 'I only got 3 commands that I listen to: `tag`, `feedback` and `funnel`.').fail(function (errr) {console.log(errr.toString);});
 	} else if (data.text == "funnel") {
+		bot.postMessage(data.channel, "Sending you the Funnel stats by User. Hang tight.").fail(function (errr) {console.log(errr.toString);});
+		
 		getSegmentCount("570fd849c04953a148000055", function (count) {
 			bot.postMessage(data.channel, "Users with No Repo Containers: " + count).fail(function (errr) {console.log(errr.toString);});
 		});
