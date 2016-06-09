@@ -392,7 +392,10 @@ bot.on('message', function(data) {
 				} else {
 					client.tags.tag({ name: "setup", companies: [{ id: company.id }] }, function (err, res) {	
 						if (!err)
-							bot.postMessage(data.channel, 'Tagged with setup.').fail(function (errr) {console.log(errr.toString);});
+							client.tags.tag({name: split[3], companies: [{ id: company.id }] }, function (err2, res2) {
+								if (!err2)
+									bot.postMessage(data.channel, 'Tagged with setup.').fail(function (errr) {console.log(errr.toString);});
+							});
 						else
 							bot.postMessage(data.channel, 'There was an error tagging this company.').fail(function (errr) {console.log(errr.toString);});
 					});
