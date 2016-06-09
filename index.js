@@ -384,6 +384,21 @@ bot.on('message', function(data) {
 		// if no notes
 		if (!split[3]) {
 			bot.postMessage(data.channel, 'No notes detected; format for tagging = tag <company name> <SAN number> <notes>').fail(function (errr) {console.log(errr.toString);});
+		} 
+		else if(JIRA.toLowerCase() == "setup") {
+			getCompanyFromName(companyName, function (company) {
+				if (!company) {
+					bot.postMessage(data.channel, 'Company does not exist in Intercom; format for tagging = tag <company name> <SAN number> <notes>').fail(function (errr) {console.log(errr.toString);});
+				} else {
+					client.tags.tag({ name: "setup", companies: [{ id: company.id }] }, function (err, res) {	
+						if (!err)
+							bot.postMessage(data.channel, 'Tagged with setup.').fail(function (errr) {console.log(errr.toString);});
+						else
+							bot.postMessage(data.channel, 'There was an error tagging this company.').fail(function (errr) {console.log(errr.toString);});
+					});
+				}
+			});
+							
 		} else {
 			var i = 3;
 			var notes = "";
@@ -391,6 +406,7 @@ bot.on('message', function(data) {
 			for (i = 3; i < split.length; i++) {
 				notes += split[i] + " ";
 			}
+			
 			
 			jira.issue.getIssue({ issueKey: JIRA}, function (err, issue) {
 				if (!issue) {
