@@ -8,12 +8,13 @@
   },
   "author": "Praful Rana",
   "dependencies": {
+    "async": "*",
+    "dogapi": "^2.3.0",
+    "intercom-client": "*",
+    "jira-connector": "*",
     "progress": "^1.1.8",
     "request": "^2.60.0",
-    "slackbots": "^0.3.0",
-    "jira-connector":"*",
-    "intercom-client" : "*",
-    "async" : "*"
+    "slackbots": "^0.3.0"
   },
   "engines": {
     "node": "0.10.x"
