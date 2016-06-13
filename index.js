@@ -3,6 +3,7 @@ var JiraClient = require('jira-connector');
 var Intercom = require('intercom-client');
 var async = require('async');
 var SlackBot = require('slackbots');
+var datadog = require('./datadog.js');
 
 var client = new Intercom.Client({ appId: 'wqzm3rju', appApiKey: 'ef28806417aef605ca74573ff080c9d5eb0d6384' });
 
@@ -35,7 +36,7 @@ var getTagCount = function (tag_id, cb) {
 		} else {
 			cb(res.body.total_count);
 		}
-	});	
+	});
 }
 
 var generateTagsTable = function (cb) {
@@ -79,19 +80,19 @@ var getIssueTable = function (issues, cb) {
 					results["problem"].push({
 						"key" : issue.key,
 						"title": issue.fields.summary,
-						"count": tags_intercom[issue.key], 
+						"count": tags_intercom[issue.key],
 					});
 				} else if (issue.fields.labels.indexOf("support") > -1) {
 					results["support"].push({
 						"key" : issue.key,
 						"title": issue.fields.summary,
-						"count": tags_intercom[issue.key], 
+						"count": tags_intercom[issue.key],
 					});
 				} else {
 					results["feedback"].push({
 						"key" : issue.key,
 						"title": issue.fields.summary,
-						"count": tags_intercom[issue.key], 
+						"count": tags_intercom[issue.key],
 					});
 				}
 			}
@@ -122,7 +123,7 @@ var getMessageFromTable = function (table) {
 
 	table["problem"].forEach(function (problem) {
 		// console.log(problem);
-		results += "<https://runnable.atlassian.net/browse/" + problem["key"] + "|" + problem["key"] + ">" + "\t" + 
+		results += "<https://runnable.atlassian.net/browse/" + problem["key"] + "|" + problem["key"] + ">" + "\t" +
 			problem["title"] + "\t" +
 			problem["count"] + " companies\n";
 	});
@@ -170,8 +171,8 @@ var getCompanyFromName = function (company_name, cb) {
 			if (found == false) {
 				cb(null);
 			}
-			
-			
+
+
 		} else {
 			results.body.companies.forEach(function (company) {
 				companyList.push(company);
@@ -196,7 +197,7 @@ var getCompanyFromName = function (company_name, cb) {
 		});
 
 		client.nextPage(results.body.pages, recursiveFetchCompaines);
-	});	
+	});
 }
 
 var addNote = function (message, companyName, cb) {
@@ -250,23 +251,22 @@ var countUsers = function (company, cb) {
 			async.forEachSeries(users, function (user, icb) {
 				if (!user.user_id)
 					ctr++
-				else 
+				else
 					console.log("skipping user", user.user_id);
 
 				icb();
 			}, function (err) {
 				console.log("actually calling back with", ctr);
 	    		cb(ctr);
-			});		
+			});
 
 
 
 		} else {
 			console.log("skipping ... " + company.company_id + " has no users");
 		}
-	});	
+	});
 }
-
 
 // countUsers()
 
@@ -278,25 +278,27 @@ var processList = function (companyList, cb) {
 	var total = 0;
 
 	async.forEachSeries(companyList, function (company, icb) {
-		console.log("counting users for", company.company_id);
+		console.log("counting users for", company, company.company_id);
 		countUsers(company, function (count) {
 			rez[company.company_id] = count;
+			// TODO: THIS NEEDS TO BE GITHUB ID!!!!
+			datadog.setUserCountForOrg(company.github_id, count)
 			total += count;
 			icb();
 		});
-	   
+
 	}, function (err) {
 		console.log('here');
 	    console.log(rez);
 	    console.log("count is", total);
 	    cb(total);
 
-	});		
+	});
 }
 
 var getSegmentCount = function (segment_id, fcb) {
 	var companyList = [];
-	
+
 	client.companies.listBy({segment_id: segment_id},function (err, results) {
 
 		var recursiveFetchCompaines = function (err, results) {
@@ -307,9 +309,9 @@ var getSegmentCount = function (segment_id, fcb) {
 				// console.log(companyList);
 				console.log("done fetching companies....");
 				processList(companyList, function (count) {
-					fcb(count); 
+					fcb(count);
 				});
-				
+
 			} else {
 				results.body.companies.forEach(function (company) {
 					companyList.push(company);
@@ -317,8 +319,8 @@ var getSegmentCount = function (segment_id, fcb) {
 
 				client.nextPage(results.body.pages, recursiveFetchCompaines);
 			}
-		}	
-		
+		}
+
 
 		var ctr = 0;
 		var maxPage = 0;
@@ -338,10 +340,10 @@ var getSegmentCount = function (segment_id, fcb) {
 
 /// UTILITY FUNCTIONS ------------------------------------------------------------
 
- 
-// create a bot 
+
+// create a bot
 var bot = new SlackBot({
-    token: process.env.BOT_API_KEEY, // Add a bot https://my.slack.com/services/new/bot and put the token  
+    token: process.env.BOT_API_KEEY, // Add a bot https://my.slack.com/services/new/bot and put the token
     name: 'Customer Bot'
 });
 
@@ -351,12 +353,12 @@ var LogChannel = "#intercom";
 bot.on('message', function(data) {
    if (data && data.user && data.text) {
 	console.log(data);
-	
+
 	if (data.text == "feedback") {
 		bot.postMessage(data.channel, 'Sending you current problems hang tight...').fail(function(err) {
 	    		console.log(err);
-		});			
-		
+		});
+
 		jira.search.search({
 		    jql: 'type = feedback',
 		    maxResults: '1000'
@@ -370,27 +372,27 @@ bot.on('message', function(data) {
 		    	});
 		    }
 		});
-		
+
 	} else if (data.text.indexOf("tag") == 0) {
 		// bot.postMessage(data.channel, 'trying to tag').fail(function (errr) {console.log(errr.toString);});
-		
+
 		//process tag args
 		var split = data.text.split(' ');
-		
+
 		var companyName = split[1];
-		
+
 		var JIRA = split[2];
-		
+
 		// if no notes
 		if (!split[3]) {
 			bot.postMessage(data.channel, 'No notes detected; format for tagging = tag <company name> <SAN number> <notes>').fail(function (errr) {console.log(errr.toString);});
-		} 
+		}
 		else if(JIRA.toLowerCase() == "setup") {
 			getCompanyFromName(companyName, function (company) {
 				if (!company) {
 					bot.postMessage(data.channel, 'Company does not exist in Intercom; format for tagging = tag <company name> <SAN number> <notes>').fail(function (errr) {console.log(errr.toString);});
 				} else {
-					client.tags.tag({ name: "setup", companies: [{ id: company.id }] }, function (err, res) {	
+					client.tags.tag({ name: "setup", companies: [{ id: company.id }] }, function (err, res) {
 						if (!err)
 							client.tags.tag({name: split[3], companies: [{ id: company.id }] }, function (err2, res2) {
 								if (!err2)
@@ -402,16 +404,16 @@ bot.on('message', function(data) {
 					});
 				}
 			});
-							
+
 		} else {
 			var i = 3;
 			var notes = "";
-			
+
 			for (i = 3; i < split.length; i++) {
 				notes += split[i] + " ";
 			}
-			
-			
+
+
 			jira.issue.getIssue({ issueKey: JIRA}, function (err, issue) {
 				if (!issue) {
 					bot.postMessage(data.channel, 'Issue is not Filed on Jira; format for tagging = tag <company name> <SAN number> <notes>').fail(function (errr) {console.log(errr.toString);});
@@ -427,37 +429,37 @@ bot.on('message', function(data) {
 									bot.postMessage(data.channel, 'there was an error tagging this company').fail(function (errr) {console.log(errr.toString);});
 								}
 								else {
-									
+
 									findUserById (data.user, function (username) {
-										// add a note to the navi user (since we can't add notes to Companies) 
+										// add a note to the navi user (since we can't add notes to Companies)
 										addNote(username + " tagged this company with  " + JIRA + " because " + notes, companyName, function (message) {
 											bot.postMessage(data.channel, username + ' tagged ' + companyName + " with " + JIRA).fail(function (errr) {console.log(errr.toString);});
 											bot.postMessage(LogChannel, username + ' tagged ' + companyName + " with " + JIRA + " because " + notes).fail(function (errr) {console.log(errr.toString);});
-										});										
+										});
 									});
 
 								}
-									
+
 							});
 						}
 					})
 				}
 			})
-			
+
 		}
-		
+
 	} else if (data.text == "help") {
 		bot.postMessage(data.channel, 'I only got 3 commands that I listen to: `tag`, `feedback` and `funnel`.').fail(function (errr) {console.log(errr.toString);});
 	} else if (data.text == "funnel") {
 		bot.postMessage(data.channel, "Sending you the Funnel stats by User. Hang tight.").fail(function (errr) {console.log(errr.toString);});
-		
+
 		getSegmentCount("570fd849c04953a148000055", function (count) {
 			bot.postMessage(data.channel, "Users with No Repo Containers: " + count).fail(function (errr) {console.log(errr.toString);});
 		});
 		getSegmentCount("57150d1121e024d1e6000034", function (count) {
 			bot.postMessage(data.channel, "Users with 1+ Repo Containers but who are *not* setup: " + count).fail(function (errr) {console.log(errr.toString);});
 		});
-		
+
 		getSegmentCount("571573d2dceccc2974000086", function (count) {
 			bot.postMessage(data.channel, "Users in Setup: " + count).fail(function (errr) {console.log(errr.toString);});
 		});
@@ -466,7 +468,21 @@ bot.on('message', function(data) {
 	else {
 		// bot.postMessage(data.channel, 'I do not understand this command').fail(function(data) {
 	 //   		console.log(data);
-		// });		
+		// });
 	}
    }
+});
+
+getSegmentCount("570fd849c04953a148000055", function (count) {
+	// bot.postMessage(data.channel, "Users with No Repo Containers: " + count).fail(function (errr) {console.log(errr.toString);});
+	console.log('count', count)
+});
+getSegmentCount("57150d1121e024d1e6000034", function (count) {
+	// bot.postMessage(data.channel, "Users with 1+ Repo Containers but who are *not* setup: " + count).fail(function (errr) {console.log(errr.toString);});
+	console.log('count', count)
+});
+
+getSegmentCount("571573d2dceccc2974000086", function (count) {
+	// bot.postMessage(data.channel, "Users in Setup: " + count).fail(function (errr) {console.log(errr.toString);});
+	console.log('count', count)
 });
