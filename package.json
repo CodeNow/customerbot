@@ -1,21 +1,50 @@
 {
-  "name": "CustomerBot",
+  "name": "customerbot",
   "version": "1.0.0",
   "description": "Runnable Demo Multi Tier Back End",
-  "main": "server/app.js",
-  "scripts": {
-    "start": "node server/app.js"
+  "main": "lib/customerbot.js",
+  "bin": {
+    "customerbot": "bin/bot.js"
   },
-  "author": "Praful Rana",
+  "scripts": {
+    "start": "babel-node bin/bot.js",
+    "dev": "nodemon bin/bot.js --exec babel-node --presets es2015",
+    "test": "eslint bin/bot.js lib/*.js"
+  },
+  "author": "Praful Rana & Sohail Ahmed",
   "dependencies": {
+    "async": "^2.0.0-rc.6",
+    "dogapi": "^2.3.0",
+    "intercom-client": "*",
+    "jira-client": "^3.0.2",
     "progress": "^1.1.8",
     "request": "^2.60.0",
-    "slackbots": "^0.3.0",
-    "jira-connector":"*",
-    "intercom-client" : "*",
-    "async" : "*"
+    "slackbots": "^0.5.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "eslint": "^2.12.0",
+    "nodemon": "^1.9.2"
   },
   "engines": {
     "node": "0.10.x"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeNow/customerbot.git"
+  },
+  "keywords": [
+    "slack",
+    "runnable",
+    "github",
+    "intercom",
+    "bot",
+    "jira"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeNow/customerbot/issues"
+  },
+  "homepage": "https://github.com/CodeNow/customerbot#readme"
 }

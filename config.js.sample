@@ -1,0 +1,46 @@
+export
+default {
+    intercom: {
+        connection: {
+            appId: process.env.INTERCOM_APP_ID,
+            appApiKey: process.env.INTERCOM_APP_API_KEY
+        },
+        feedback: [{
+            intercom_id: "570fd849c04953a148000055",
+            name: "norepo",
+            desc: "Users with No Repo Containers: "
+        }, {
+            intercom_id: "57150d1121e024d1e6000034",
+            name: "norepo",
+            desc: "Users with 1+ Repo Containers but who are *not* setup: "
+        }, {
+            intercom_id: "571573d2dceccc2974000086",
+            name: "setup",
+            desc: "Users in Setup: "
+        }],
+        allowed_tags: [ 'setup', '1-tier', '2-tier', 'demo-tier', 'inactive' ]
+    },
+    jira: {
+        connection: {
+            protocol: 'https',
+            host: 'runnable.atlassian.net',
+            username: process.env.JIRA_USERNAME,
+            password: process.env.JIRA_PASSWORD,
+            apiVersion: '2',
+            strictSSL: true
+        }
+    },
+    slack: {
+        connection: {
+            token: process.env.BOT_API_KEY,
+            name: process.env.BOT_NAME
+        },
+        logChannel: '#intercom'
+    },
+    datadog: {
+        connection: {
+            api_key: process.env.DATADOG_API_KEY,
+            app_key: process.env.DATADOG_APP_KEY
+        }
+    }
+}

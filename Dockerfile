@@ -1,6 +1,16 @@
 FROM node
-#ADD package.json /bot/package.json
+
+ENV INTERCOM_APP_ID=0 \
+	INTERCOM_APP_API_KEY=0 \
+	JIRA_USERNAME=0 \
+	JIRA_PASSWORD=0 \
+	BOT_API_KEY=0 \
+	BOT_NAME=0 \
+	DATADOG_API_KEY=0 \
+	DATADOG_APP_KEY=0
+
 WORKDIR /bot
 ADD . .
 RUN npm install
-CMD node index.js
+RUN cp config.js.sample config.js
+CMD npm run start
