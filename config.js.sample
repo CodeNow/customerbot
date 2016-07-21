@@ -42,5 +42,12 @@ default {
             api_key: process.env.DATADOG_API_KEY,
             app_key: process.env.DATADOG_APP_KEY
         }
+    },
+    runnable: {
+        connection: {
+            accessToken: process.env.GITHUB_ACCESS_TOKEN
+        },
+        apiUrl: 'https://api.runnable.io/',
+        userContentDomain: 'runnableapp.com'
     }
 }
