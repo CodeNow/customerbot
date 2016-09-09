@@ -22,6 +22,7 @@
     "dogapi": "^2.3.0",
     "intercom-client": "*",
     "jira-client": "^3.0.2",
+    "keypather": "^2.0.1",
     "moment": "^2.14.1",
     "octonode": "^0.7.6",
     "slackbots": "^0.5.1",
