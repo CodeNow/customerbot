@@ -49,5 +49,12 @@ default {
         },
         apiUrl: 'https://api.runnable.io/',
         userContentDomain: 'runnableapp.com'
+    },
+    stripe: {
+        secret_key: process.env.STRIPE_SECRET_KEY,
+        publishable_key: process.env.STRIPE_PUBLISHABLE_KEY
+    },
+    bigPoppa: {
+        host: process.env.BIG_POPPA_HOST
     }
 }
