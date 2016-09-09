@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "babel-node bin/bot.js",
+    "script": "babel-node lib/script.js",
     "dev": "nodemon bin/bot.js --exec babel-node --presets es2015",
     "test": "standard --verbmtse bin/bot.js lib/*.js",
     "format": "standard-format -w bin/bot.js lib/*.js"
