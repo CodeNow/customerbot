@@ -6,7 +6,7 @@ CustomerBot is a Slack bot that serves it's overlords of the Customer Success te
 
 ```bash
 $ npm install
-$ npm run start
+$ npm start
 ```
 
 ## Development (uses nodemon)
