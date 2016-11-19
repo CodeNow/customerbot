@@ -6,8 +6,8 @@
  * @author Praful Rana <praful@runnable.com> & Sohail Ahmed <sohail@runnable.com>
  */
 
-import CustomerBot from '../lib/customerbot'
-import config from '../config'
+require('loadenv')()
+import CustomerBot from './lib/customerbot'
 
 /**
  * Environment variables used to configure the bot:
@@ -18,6 +18,5 @@ import config from '../config'
  *  BOT_NAME : the name to use for the bot on Slack
  */
 
-const customerbot = new CustomerBot(config)
-
+const customerbot = new CustomerBot()
 customerbot.run()
