@@ -4,11 +4,11 @@
   "description": "Runnable Demo Multi Tier Back End",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production forever start -c node_modules/.bin/babel-node index.js",
-    "stop": "forever stop -c node_modules/.bin/babel-node index.js",
-    "script": "NODE_ENV=development babel-node lib/script.js",
-    "dev": "NODE_ENV=development nodemon index.js --exec babel-node --presets es2015",
-    "test": "standard --verbmtse index.js lib/*.js",
+    "start": "NODE_ENV=production forever start index.js",
+    "stop": "forever stop index.js",
+    "script": "NODE_ENV=development nodemon lib/script.js",
+    "dev": "NODE_ENV=development nodemon index.js",
+    "test": "standard --verbose index.js lib/*.js",
     "format": "standard-format -w index.js lib/*.js"
   },
   "author": "Praful Rana & Sohail Ahmed",
@@ -16,10 +16,13 @@
     "101": "^1.6.2",
     "@runnable/api-client": "^7.5.0",
     "@runnable/big-poppa-client": "^0.5.0",
+    "@runnable/orion": "^1.4.1",
     "async": "^2.0.0-rc.6",
     "aws-sdk": "^2.6.1",
     "bluebird": "^3.4.6",
+    "bunyan": "^1.8.5",
     "cli-spinner": "^0.2.5",
+    "continuation-local-storage": "^3.2.0",
     "dogapi": "^2.3.0",
     "error-cat": "^3.0.0",
     "forever": "^0.15.2",
@@ -31,7 +34,7 @@
     "lodash": "^4.15.0",
     "moment": "^2.14.1",
     "octonode": "^0.7.6",
-    "ponos": "^5.3.0",
+    "ponos": "^5.8.2",
     "slackbots": "^0.5.1",
     "stripe": "^4.10.0"
   },
@@ -41,9 +44,6 @@
     "nodemon": "^1.9.2",
     "standard": "^7.1.2",
     "standard-format": "^2.2.2"
-  },
-  "engines": {
-    "node": "0.10.x"
   },
   "repository": {
     "type": "git",
