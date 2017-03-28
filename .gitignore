@@ -38,5 +38,5 @@ token.js
 #do not commit editor config files
 .idea
 
-config.js
-config.js.backup
+configs/.env.production
+.vscode/
