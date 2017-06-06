@@ -8,7 +8,7 @@
     "enable": "`enable` Enable organization.\n*Usage:*\n\t_enable <organization-name>_",
     "disable": "`Disable` Disable organization.\n*Usage:*\n\t_disable <organization-name>_",
     "bp": "`bp` Get bigPoppa information about organization.\n*Usage:*\n\t_bp <organization-name>_",
-    "default": "Here are the available commands:\n\t`tag` Tag a organization.\n\t`feedback` Get current issues.\n\t`funnel` Get funnel statistics.\n\t`bp` Get bigPoppa information about organization.\n\t`hijack` Moderate organization.\n\t`topup` Extend trial for an organization.\n\t`enable/disable` Enable/disable organization.\n\t`api` Get API info from Container URL.\n\t`topup` Add trial days to an organization.\n\nMessage `help <command>` for usage information."
+    "default": "Here are the available commands:\n\t`tag` Tag a organization.\n\t`feedback` Get current issues.\n\t`funnel` Get funnel statistics.\n\t`bp` Get bigPoppa information about organization.\n\t`topup` Extend trial for an organization.\n\t`enable/disable` Enable/disable organization.\n\t`api` Get API info from Container URL.\n\t`topup` Add trial days to an organization.\n\nMessage `help <command>` for usage information."
   },
   "error": {
     "commandNotFound": "`Command Not Found` Type *help* for more information about available commands."

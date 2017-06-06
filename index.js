@@ -18,7 +18,6 @@ const CustomerBot = require('./lib/customerbot')
  *  BOT_NAME : the name to use for the bot on Slack
  *  DATADOG_API_KEY : datadog api key
  *  DATADOG_APP_KEY : app key for datadog
- *  DEVOPS_SCRIPTS_PATH : path to devops scripts for ssh
  *  GITHUB_ACCESS_TOKEN : for github api requests
  *  INTERCOM_APP_API_KEY : for intercom api requests
  *  INTERCOM_APP_ID : for intercom api requests
