@@ -4,13 +4,11 @@
   "description": "Runnable's Customer Bot",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production forever start index.js",
-    "stop": "forever stop index.js",
+    "start": "NODE_ENV=production node index.js",
     "script": "NODE_ENV=development nodemon lib/script.js",
     "dev": "NODE_ENV=development nodemon index.js | bunyan",
     "donut": "NODE_ENV=production nodemon index.js | bunyan",
-    "test": "standard --verbose index.js lib/*.js",
-    "format": "standard-format -w index.js lib/*.js"
+    "test": "standard --verbose index.js lib/*.js"
   },
   "author": "Praful Rana & Sohail Ahmed",
   "dependencies": {
@@ -26,7 +24,6 @@
     "continuation-local-storage": "^3.2.0",
     "dogapi": "^2.3.0",
     "error-cat": "^3.0.0",
-    "forever": "^0.15.2",
     "intercom-client": "*",
     "jira-client": "^3.0.2",
     "joi": "^9.0.4",
