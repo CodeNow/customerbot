@@ -5,8 +5,7 @@ MAINTAINER Runnable, Inc
 RUN mkdir /app
 WORKDIR /app
 ADD package.json /app
-RUN npm install -g yarn
-RUN yarn install
+RUN npm install
 
 # Add Repository Files
 ADD . /app
