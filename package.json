@@ -7,7 +7,6 @@
     "start": "NODE_ENV=production node index.js",
     "script": "NODE_ENV=development nodemon lib/script.js",
     "dev": "NODE_ENV=development nodemon index.js | bunyan",
-    "donut": "NODE_ENV=production nodemon index.js | bunyan",
     "test": "standard --verbose index.js lib/*.js"
   },
   "author": "Praful Rana & Sohail Ahmed",
